@@ -1,0 +1,201 @@
+<!--
+Kyle Bigart
+12/12/2019
+This Webpage is a Fun Fact Quiz game about Board Games.
+Asking questions like what's the best selling board game and other fun facts.
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="BGstyles.css">
+<script src="./jquery-3.4.1.js"></script>
+<link rel="stylesheet" href="./bootstrap.min.css">
+<!--<script defer src="./engine.js"></script>-->
+<!--
+Source:
+https://www.youtube.com/watch?v=LQGTb112N_c
+https://stackoverflow.com/questions/40987997/making-a-simple-multiple-choice-quiz-html-jquery
+https://www.youtube.com/watch?v=riDzcEQbX6k
+https://github.com/WebDevSimplified/JavaScript-Quiz-App
+
+Jquerry Events uses are:
+.click()
+Bind an event handler to the “click” JavaScript event, or trigger that event on an element.
+
+event.data
+An optional object of data passed to an event method when the current executing handler is bound.
+
+event.namespace
+The namespace specified when the event was triggered.
+
+https://api.jquery.com/category/events/
+-->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!--Top Navigation Bar-->
+  <div class="mainHeaderTop">
+    <a href="./Home.html">Home</a>
+    <a href="./BGofTheYear.html">Board Game of The Year</a>
+    <a class="active" href="#GeekQuiz">Geek Quiz</a>
+    <a href="./Survey.html">Website Survey</a>
+    <a href="./TimeCalc.html">Time Calc</a>
+  </div>
+  <title>Geek Quiz</title>
+
+
+</head>
+
+<body>
+  <div class="container">
+    <div id="question-container" class="hide">
+      <div id="question">Question</div>
+      <div id="answer-buttons" class="btn-grid">
+        <button class="btn">Answer 1</button>
+        <button class="btn">Answer 2</button>
+        <button class="btn">Answer 3</button>
+        <button class="btn">Answer 4</button>
+      </div>
+    </div>
+    <div class="controls">
+      <button id="start-btn" class="start-btn btn">Start</button>
+      <button id="next-btn" class="next-btn btn hide">Next</button>
+    </div>
+  </div>
+</body>
+
+</html>
+<script>
+  //Defining Objects:
+  const startButton = document.getElementById("start-btn")
+  const nextButton = document.getElementById("next-btn")
+  const questionContainerElement = document.getElementById("question-container")
+  const questionElement = document.getElementById("question")
+  const answerButtonsElement = document.getElementById("answer-buttons")
+
+  let shuffledQuestions, currentQuestionIndex
+
+  startButton.addEventListener("click", startGame)
+  nextButton.addEventListener("click", () => {
+    currentQuestionIndex++
+    setNextQuestion()
+  })
+
+
+  //The Main Menu to start the Fun Fact Board Game Quiz.
+  function startGame() {
+    startButton.classList.add("hide")
+    shuffledQuestions = questions.sort(() => Math.random() - .5)
+    currentQuestionIndex = 0
+    questionContainerElement.classList.remove("hide")
+    setNextQuestion()
+  }
+  //Calling the other function shuffledQuestions to shuffle currentQuestionIndex.
+  function setNextQuestion() {
+    resetState()
+    showQuestion(shuffledQuestions[currentQuestionIndex])
+  }
+  //Shows the question and shows which one is the correct answer.
+  function showQuestion(question) {
+    questionElement.innerText = question.question
+    question.answers.forEach(answer => {
+      const button = document.createElement("button")
+      button.innerText = answer.text
+      button.classList.add("btn")
+      if (answer.correct) {
+        button.dataset.correct = answer.correct
+      }
+      button.addEventListener("click", selectAnswer)
+      answerButtonsElement.appendChild(button)
+    })
+  }
+  //The reset fucntion/method to restart the quiz.
+  function resetState() {
+    clearStatusClass(document.body)
+    nextButton.classList.add("hide")
+    while (answerButtonsElement.firstChild) {
+      answerButtonsElement.removeChild(answerButtonsElement.firstChild)
+    }
+  }
+  //Setting up the arrays for the questions and correct answer.
+  function selectAnswer(e) {
+    const selectedButton = e.target
+    const correct = selectedButton.dataset.correct
+    setStatusClass(document.body, correct)
+    Array.from(answerButtonsElement.children).forEach(button => {
+      setStatusClass(button, button.dataset.correct)
+    })
+    if (shuffledQuestions.length > currentQuestionIndex + 1) {
+      nextButton.classList.remove("hide")
+    } else {
+      startButton.innerText = "Restart"
+      startButton.classList.remove("hide")
+    }
+  }
+  //Checking if the user interaction is valid in the quiz.
+  function setStatusClass(element, correct) {
+    clearStatusClass(element)
+    if (correct) {
+      element.classList.add("correct")
+    } else {
+      element.classList.add("wrong")
+    }
+  }
+  //Clear Status removes the list of both message functions/methods.
+  function clearStatusClass(element) {
+    element.classList.remove("correct")
+    element.classList.remove("wrong")
+  }
+  //Got this fact from:
+  //Who Really Invented Monoply?  - Smithsonian Channel
+  //https://www.youtube.com/watch?v=qQfEdFuvEHQ
+  const questions = [
+    {
+      question: "Was Monopoly inspired by the Landlord's Game?",
+      answers: [
+        { text: "Yes", correct: true },
+        { text: "No", correct: false }
+      ]
+    },
+    {
+      //Got this answer from Google and Wikipedia.
+      question: "Which One is the Oldest Board Game?",
+      answers: [
+        { text: "Modern Dominoes", correct: false },
+        { text: "Modern Chess", correct: false },
+        { text: "Modern Checkers", correct: false },
+        { text: "Modern Backgammond", correct: true }
+      ]
+    },
+    {
+      //Got it this fact from the manual of 70th Anniversary Edition of Monopoly
+      question: "What material was used for the board's prototype for Monopoly?",
+      answers: [
+        { text: "Wood", correct: false },
+        { text: "Tablecloth", correct: true },
+        { text: "Paper", correct: false },
+        { text: "Cardboard", correct: false }
+      ]
+    },
+    {
+      //Source: https://www.therichest.com/lifestyles/best-selling-board-games-of-all-time/
+      question: "What is the best selling Board Game?",
+      answers: [
+        { text: "Checkers", correct: false },
+        { text: "Chess", correct: true },
+        { text: "Monopoly", correct: false },
+        { text: "Backgammond", correct: false }
+      ]
+    },
+    //Source: https://en.wikipedia.org/wiki/Senet
+    {
+      question: "TRUE or FALSE: Is Senet the oldest board game ever, that dates to Ancient Egypt around 3100 BC?",
+      answers: [
+        { text: "False", correct: false },
+        { text: "True", correct: true }
+      ]
+    }
+  ]
+</script>

@@ -1,0 +1,74 @@
+<!--
+Kyle Bigart
+12/11/2019
+The Home Webpage have a carousel of photos for the user to select a photo and it will be enlarge. 
+
+https://www.youtube.com/watch?v=Dc2WHsuiXos
+https://stackoverflow.com/questions/34867276/change-nan-to-error-in-javascript-calculator
+https://www.w3schools.com/js/js_errors.asp
+
+Photo Sources:
+Stratego Picture from:
+https://www.amazon.com/PlayMonster-7472-Stratego-Original/dp/B00LEOJAKM/ref=asc_df_B00LEOJAKM/?tag=hyprod-20&linkCode=df0&hvadid=312031372212&hvpos=1o2&hvnetw=g&hvrand=10486944868588785374&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9021317&hvtargid=pla-436285790145&psc=1
+
+Settlers of Catan Picture from:
+https://www.amazon.com/Mayfair-Games-MFG3061-Settlers-Catan/dp/B000W7JWUA
+
+Masterpiece Picture from:
+https://boardgamegeek.com/image/103966/masterpiece
+
+Risk Europe Picture from:
+https://www.amazon.com/Risk-Europe-Strategy-Board-Hasbro/dp/B01ALHAEMK/ref=pd_sbs_21_5/145-4755088-1064004?_encoding=UTF8&pd_rd_i=B01ALHAEMK&pd_rd_r=301634d8-80c3-4e2c-8681-ad1038d203c4&pd_rd_w=3tLjh&pd_rd_wg=B8Q6Z&pf_rd_p=5873ae95-9063-4a23-9b7e-eafa738c2269&pf_rd_r=EK7YKZ0H9QRGVZ1WX14E&psc=1&refRID=EK7YKZ0H9QRGVZ1WX14E
+
+Easy Money Picture from:
+https://boardgamegeek.com/image/507142/easy-money
+
+Anti-Monopoly Picture from:
+https://boardgamegeek.com/image/173225/anti-monopoly
+
+Game of Life Picture from:
+https://boardgamegeek.com/image/99809/game-of-life
+-->
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="BGstyles.css">
+<script src="./jquery-3.4.1.js"></script>
+<!--Engine.js is the file being used for Javascript.-->
+<script src="./engine.js"></script>
+
+<head>
+  <!--Top Navigation Bar-->
+  <div class="mainHeaderTop">
+    <a class="active" href="#home">Home</a>
+    <a href="./BGofTheYear.html">Board Game of The Year</a>
+    <a href="./GeekQuiz.html">Geek Quiz</a>
+    <a href="./Survey.html">Website Survey</a>
+    <a href="./TimeCalc.html">Time Calc</a>
+
+  </div>
+  <title>Home</title>
+</head>
+
+<body style.TextAlign="center">
+  <!--Large photo, that is set to it's default selected phto and size.-->
+  <img height="540px" width="540px" style="border:3px solid grey" src="BGpix/Materpiece.jpg" id="mainImage" />
+  <br />
+  <!--Defined all the photos available to slect.-->
+  <div id="photoReel" onclick="changeImage(event)">
+    <img class="imgStyle" src="BGpix/BattleShip.jpg" />
+    <img class="imgStyle" src="BGpix/Materpiece.jpg" />
+    <img class="imgStyle" src="BGpix/Monopoly.jpg" />
+    <img class="imgStyle" src="BGpix/Risk.jpg" />
+    <img class="imgStyle" src="BGpix/Risk_Europe.jpg" />
+    <br />
+    <img class="imgStyle" src="BGpix/SettlersOfCatan.jpg" />
+    <img class="imgStyle" src="BGpix/Stratego.jpg" />
+    <img class="imgStyle" src="BGpix/Anti_Monopoly.jpg" />
+    <img class="imgStyle" src="BGpix/Easy_Money.jpg" />
+    <img class="imgStyle" src="BGpix/Game_Of_Life.jpg" />
+  </div>
+
+
+</body>
+
+</html>

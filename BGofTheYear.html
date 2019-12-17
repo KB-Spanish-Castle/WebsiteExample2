@@ -1,0 +1,140 @@
+<!--
+Kyle Bigart
+12/12/2019
+Board Game Of the Year survey is to vote for what's the user's favorite genres and board games.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="BGstyles.css">
+<script src="./jquery-3.4.1.js"></script>
+<script src="./survey.jquery.js"></script>
+<link href="./modern.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="./bootstrap.min.css">
+<!--
+    Source:
+    https://surveyjs.io/Examples/Library/?id=survey-data&platform=jQuery
+-->
+
+<head>
+    <!--Top Navigation Bar-->
+    <div class="mainHeaderTop">
+        <a href="./Home.html">Home</a>
+        <a class="active" href="#BGofTheYear">Board Game of The Year</a>
+        <a href="./GeekQuiz.html">Geek Quiz</a>
+        <a href="./Survey.html">Board Game Survey</a>
+        <a href="./TimeCalc.html">Time Calc</a>
+    </div>
+    <title>Board Game of The Year</title>
+</head>
+
+<body>
+    <div id="surveyElement"></div>
+    <div id="surveyResult"></div>
+</body>
+
+<script>
+
+    var surveyValueChanged = function (sender, options) {
+        var el = document.getElementById(options.name);
+        if (el) {
+            el.value = options.value;
+        }
+    };
+
+    Survey
+        .StylesManager
+        .applyTheme("modern");
+    //Definging a single textbox and two checkboxes.
+    var json = {
+        questions: [
+            {
+                //Defining a textbox for the user to type Most played board game and it's not required to fill.
+                //If leave it blank is fine, no restriction.
+                type: "text",
+                name: "name",
+                title: "Board Game Played Most?:"
+            },
+            {
+                //Checkbox of selecting any board game
+                type: "checkbox",
+                name: "bestBoardGame",
+                title: "What is the best Board Game in the selection? (All trademark names to there respected copyright owners)",
+                isRequired: true,
+                colCount: 4,
+                choices: [
+                    "Game(s) Not On This List",
+                    "Chess",
+                    "Backgammond",
+                    "Checkers",
+                    "Dominoes",
+                    "Monopoly(TM)",
+                    "Risk(TM)",
+                    "Stratego(TM)",
+                    "Settlers of Catan(TM)",
+                    "Axis and Allies(TM)",
+                    "Clue(TM)",
+                    "Scrabble(TM)",
+                    "Mouse Trap(TM)",
+                    "Sorry!(TM)",
+                    "Ticket To Ride(TM)",
+                    "Battleship(TM)",
+                    "Jenga(TM)",
+                    "Travial Pursuit(TM",
+                    "Pictionary(TM)",
+                    "Operation(TM)",
+                    "Senet",
+                    "Twister(TM)",
+                    "Apple To Apples(TM)",
+                    "Game Of Life(TM)",
+                    "Yatzee(TM)",
+                    "Connect 4(TM)",
+                    "Blockus(TM)",
+                    "Othello(TM)"
+                ],
+            },
+            {
+                /*
+                Source for game Generes:
+                https://boardgamegeek.com/wiki/page/Game_Genres
+                */
+                type: "checkbox",
+                name: "bestBoardGameGenera",
+                title: "What favorite board game genera for board games?",
+                isRequired: true,
+                colCount: 4,
+                choices: [
+                    "Family",
+                    "Dexterity",
+                    "Party",
+                    "Abstract",
+                    "Strategy",
+                    "Thematic Games",
+                    "Eurogames",
+                    "Wargames",
+                ]
+            }
+
+        ]
+
+
+    };
+
+    window.survey = new Survey.Model(json);
+    //After completion the Survey Result will be outputed.
+    survey
+        .onComplete
+        .add(function (result) {
+            document
+                .querySelector('#surveyResult')
+                .textContent = "Result JSON:\n" + JSON.stringify(result.data, null, 3);
+        });
+    //Defining default answers for the user.
+    survey.data = {
+        name: "Clue",
+        bestBoardGame: ["Games Not On This List"]
+    };
+
+    $("#surveyElement").Survey({ model: survey, onValueChanged: surveyValueChanged });
+</script>
+
+</html>

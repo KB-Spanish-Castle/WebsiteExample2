@@ -1,0 +1,218 @@
+<!--
+Kyle Bigart
+12/12/2019
+Time Calculator of what the percentage of time spent playing board games this week.
+Type a few numbers and select a button if the input is: seconds, Minutes, or Hours.
+A Modified JQuerry Calcualtor is being used by the user.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="BGstyles.css">
+<script src="./jquery-3.4.1.js"></script>
+<!--<script src="./engine.js"></script>
+Source: https://github.com/shopglobal/jquery-calculator/blob/master/jquery-calculator.html-->
+
+<head>
+    <!--Top Navigation Bar-->
+    <div class="mainHeaderTop">
+        <a href="./Home.html">Home</a>
+        <a href="./BGofTheYear.html">Board Game of The Year</a>
+        <a href="./GeekQuiz.html">Geek Quiz</a>
+        <a href="./Survey.html">Website Survey</a>
+        <a class="active" href="#TimeCalc">Time Calc</a>
+
+    </div>
+    <script src="./jquery.min.js"></script>
+    <link rel="stylesheet" href="./bootstrap.min.css">
+    <title>Time Calc</title>
+</head>
+
+<body>
+
+    <!-- BGTimeCalc for Title -->
+    <div class="BGTimeCalc">
+        <h1 class="text-center">What is the percentage of time played this week?</h1>
+        <h3 class="text-center">Perform basic mathematic operations using the power of jQuery!</h3>
+    </div>
+
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Calculator Panel -->
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Calculator</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <button id="button-1" class="btn btn-primary number" value="1">
+                            <h1>1</h1>
+                        </button>
+                        <button id="button-2" class="btn btn-primary number" value="2">
+                            <h1>2</h1>
+                        </button>
+                        <button id="button-3" class="btn btn-primary number" value="3">
+                            <h1>3</h1>
+                        </button>
+                        <br><br>
+                        <button id="button-4" class="btn btn-primary number" value="4">
+                            <h1>4</h1>
+                        </button>
+                        <button id="button-5" class="btn btn-primary number" value="5">
+                            <h1>5</h1>
+                        </button>
+                        <button id="button-6" class="btn btn-primary number" value="6">
+                            <h1>6</h1>
+                        </button>
+                        <br><br>
+                        <button id="button-7" class="btn btn-primary number" value="7">
+                            <h1>7</h1>
+                        </button>
+                        <button id="button-8" class="btn btn-primary number" value="8">
+                            <h1>8</h1>
+                        </button>
+                        <button id="button-9" class="btn btn-primary number" value="9">
+                            <h1>9</h1>
+                        </button>
+                        <br><br>
+                        <button id="button-0" class="btn btn-primary number" value="0">
+                            <h1>0</h1>
+                        </button>
+                        <br><br>
+                        <button id="button-equalminperweek" class="btn btn-success equalminperweek"
+                            value="equalminperweek">
+                            <h1>Average Played in Minutes Per Week</h1>
+                        </button>
+                        <button id="button-equalhourperweek" class="btn btn-success equalhourperweek"
+                            value="equalhourperweek">
+                            <h1>Average Played in Hours Per Week</h1>
+                        </button>
+                        <button id="button-equalsecperweek" class="btn btn-success equalsecperweek"
+                            value="equalsecperweek">
+                            <h1>Average Played in Seconds Per Week</h1>
+                        </button>
+                        <button id="button-clear" class="btn btn-default clear" value="clear">
+                            <h1>clear</h1>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Result Panel -->
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Result</h3>
+                    </div>
+                    <div class="panel-body">
+                        <h1 id="first-number"></h1>
+                        <hr>
+                        <h1 id="result"></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Declaring the varaibles.
+            var num1 = 0;
+            var number = 0;
+            var equalhourperweek = $();
+            var equalminperweek = $();
+            var equalsecperweek = $();
+
+
+            // on clicks function
+            $(".number").on("click", function () {
+                console.log("Number Clicked");
+
+                var digit = $(this).attr("value");
+                number = number * 10 + parseInt(digit);
+                console.log("the number is " + number);
+                console.log(digit);
+                num1 = number;
+                console.log(num1);
+                $("#first-number").append(digit);
+
+            });
+            //The clear button will clear all the values.
+            $(".clear").on("click", function () {
+                console.log("Clear Clicked");
+                var cleared = $(this).attr("value");
+                clear = cleared;
+                console.log(clear);
+                $("#minperweek").html("");
+                $("#secperweek").html("");
+                $("#hourperweek").html("");
+                $("#result").html("");
+                $("#first-number").html("");
+                num1 = 0;
+                number = 0;
+            });
+            //Note: There are 10080 minutes in a week.
+            //Trying to get the perecentage of how much time is spent that week!
+            $(".equalminperweek").on("click", function () {
+                console.log("Minute(s) per Week Clicked");
+                var minperweekresults = eval((100 / 10080) * num1);
+                number = 0;
+                if (minperweekresults <= 100) {
+                    console.log("num1: " + num1);
+                    console.log(minperweekresults);
+                    $("#first-number").html("");
+                    $("#result").html(minperweekresults.toFixed(2) + "%");
+                }
+                else {
+                    $("#first-number").html("");
+                    $("#result").html("Impossible amount of minutes for one week!");
+                }
+            });
+            //The calcuation converts the hours into minutes and compares it to how many minutes in a week.
+            //The result is the percentage of how much time have been spent.
+            $(".equalhourperweek").on("click", function () {
+                console.log("Hour(s) per Week Clicked");
+                //168 hours in a week
+                var hourperweekresults = eval((100 / 168) * num1);
+                number = 0;
+                if (hourperweekresults <= 100) {
+                    console.log("num1: " + num1);
+                    console.log(hourperweekresults);
+                    $("#first-number").html("");
+                    $("#result").html(hourperweekresults.toFixed(2) + "%");
+                }
+                else {
+                    $("#first-number").html("");
+                    $("#result").html("Impossible amount of hours for one week!");
+                }
+            });
+            //Amount of seconds play board games this week.
+            $(".equalsecperweek").on("click", function () {
+                console.log("Second(s) per Week Clicked");
+                var secperweekresults = eval((100 / 604800) * num1);
+                number = 0;
+                if (secperweekresults <= 100) {
+                    console.log("num1: " + num1);
+                    console.log(secperweekresults);
+                    $("#first-number").html("");
+                    $("#result").html(secperweekresults.toFixed(2) + "%");
+                }
+                else {
+                    $("#first-number").html("");
+                    $("#result").html("Impossible amount of seconds for one week!");
+                }
+
+            });
+
+            console.log(num1);
+            //Reasult reads out unto the GUI webpage.
+            $("#result").html("<br><hr>" + num1);
+        });
+    </script>
+
+</body>
+
+</html>

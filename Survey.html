@@ -1,0 +1,134 @@
+<!--
+Kyle Bigart
+12/12/2019
+This class focus on a survey with the voting 0 to 10.
+If the voting rating is above 5 it will ask who the user is planing to play with.
+Greater than 5 also opens the option of what game genres will be playing becomes available.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="BGstyles.css">
+<script src="./jquery-3.4.1.js"></script>
+<script src="./survey.jquery.js"></script>
+<link href="./modern.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="./bootstrap.min.css">
+
+<!--Board Game Survey Survey
+Source:
+https://surveyjs.io/Examples/Library/
+https://boardgamegeek.com/wiki/page/Game_Genres
+
+JQuerry Event:
+.onComplete
+-->
+
+<head>
+    <!--Top Navigation Bar-->
+    <div class="mainHeaderTop">
+        <a href="./Home.html">Home</a>
+        <a href="./BGofTheYear.html">Board Game of The Year</a>
+        <a href="./GeekQuiz.html">Geek Quiz</a>
+        <a class="active" href="#Survey">Board Game Survey</a>
+        <a href="./TimeCalc.html">Time Calc</a>
+    </div>
+    <title>Board Game Survey</title>
+</head>
+
+<body>
+    <div id="surveyElement"></div>
+    <div id="surveyResult"></div>
+
+    <script type="text/javascript">
+        Survey
+            .StylesManager
+            .applyTheme("modern");
+        //All the declared JQuerry survey interaction and messages being defined when to appear.
+        var json = {
+            "completedHtml": "<h3>Thank you for your time.</h3> <h5>Your thoughts and ideas will help us to create a great survey!</h5>",
+            "completedHtmlOnCondition": [
+                {
+                    "expression": "{nps_score} > 5",
+                    "html": "<h3>Thank you for your time.</h3> <h5> We are gald that you share with us your activity of play board games this month.</h5>"
+                }, {
+                    "expression": "{nps_score} =< 5",
+                    "html": "<h3>Thank you for your time.</h3> <h5> We are glad that you share with us what you thought this month.</h5>\n"
+                }
+            ],
+            "pages": [
+                {
+                    "name": "page1",
+                    "elements": [
+                        {
+                            //Defining the rating bar.
+                            "type": "rating",
+                            "name": "nps_score",
+                            "title": "On a scale of zero to ten, how likely are you to play a board game this month? (If Greater than 5 more questions will be required)",
+                            "isRequired": true,
+                            "rateMin": 0,
+                            "rateMax": 10,
+                            "minRateDescription": "(Most unlikely)",
+                            "maxRateDescription": "(Most likely)"
+                        }, {
+                            //Defining a checkbox when the user choces a score greater than 5.
+                            "type": "checkbox",
+                            "name": "promoter_features",
+                            "visibleIf": "{nps_score} >= 6",
+                            "title": "What board game genre(s) you have enjoyed the most?",
+                            "isRequired": true,
+                            "validators": [
+                                {
+                                    "type": "answercount",
+                                    "text": "Please select two genres maximum.",
+                                    "minCount": 1
+                                }
+                            ],
+                            "hasOther": true,
+                            "choices": [
+                                "Family Games", "Dexterity Games", "Party Games", "Abstract", "Strategy", "Thematic Games", "Eurogames", "Wargames"
+                            ],
+                            "otherEvent": "Other feature:",
+                            "colCount": 2
+                        }, {
+                            //Defining a checkbox when the user choces a score greater than 5.
+                            "type": "checkbox",
+                            "name": "passive_experience",
+                            "visibleIf": "{nps_score} > 5  and {nps_score} <= 10",
+                            "title": "Are you planning to play: alone, friends, and/or family?",
+                            "isRequired": true,
+                            "validators": [
+                                {
+                                    "type": "answercount",
+                                    "text": "Please select one type of planned board game event.",
+                                    "maxCount": 1
+                                }
+                                //Below is defined if the user select "Other Type of Event" it will open a textbox.
+                            ],
+                            "hasOther": true,
+                            "choices": [
+                                "Alone", "Friends", "Family", "Friends & Family"
+                            ],
+                            "otherEvent": "Other Type of Event:",
+                            "colCount": 2
+                        }
+                    ]
+                }
+            ],
+            "showQuestionNumbers": "off"
+        };
+
+        window.survey = new Survey.Model(json);
+        //Telling what to do next after being complete in meeting all the requirements.
+        survey
+            .onComplete
+            .add(function (result) {
+                document
+                    .querySelector('#surveyResult')
+                    .textContent = "Result JSON:\n" + JSON.stringify(result.data, null, 3);
+            });
+
+        $("#surveyElement").Survey({ model: survey });
+
+    </script>
+</body>
+
+</html>

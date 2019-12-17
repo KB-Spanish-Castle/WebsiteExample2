@@ -1,0 +1,168 @@
+/*Kyle Bigart, 10-6-19
+I followed along this tutorial: https://www.youtube.com/watch?v=Dc2WHsuiXos
+Default style for an small image to pick from to enlarge it.*/
+
+.imgStyle {
+  height: 100px;
+  width: 100px;
+  border: 3px solid grey;
+}
+
+/* Add a black background color to the top navigation */
+
+.mainHeaderTop {
+  background-color: rgb(135, 53, 138);
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+
+.mainHeaderTop a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on the mouse's hover */
+
+.mainHeaderTop a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+
+.mainHeaderTop a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.mainHeaderTop {
+  padding: 60px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+  font-size: 30px;
+}
+
+body {
+  font-family: Arial;
+  margin: 0;
+  background: rgb(155, 240, 233);
+  text-align: center;
+}
+
+/*
+https://github.com/WebDevSimplified/JavaScript-Quiz-App
+*/
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  font-family: Gotham Rounded;
+}
+
+:root {
+  --hue-neutral: 200;
+  --hue-wrong: 0;
+  --hue-correct: 145;
+}
+
+/*
+  body {
+    --hue: var(--hue-neutral);
+    padding: 0;
+    margin: 0;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: hsl(var(--hue), 100%, 20%);
+  }
+  */
+
+body.correct {
+  --hue: var(--hue-correct);
+}
+
+body.wrong {
+  --hue: var(--hue-wrong);
+}
+
+.container {
+  width: 800px;
+  max-width: 80%;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 10px 2px;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.btn {
+  --hue: var(--hue-neutral);
+  border: 1px solid hsl(var(--hue), 100%, 30%);
+  background-color: hsl(var(--hue), 100%, 50%);
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: white;
+  outline: none;
+}
+
+.btn:hover {
+  border-color: black;
+}
+
+.btn.correct {
+  --hue: var(--hue-correct);
+  color: black;
+}
+
+.btn.wrong {
+  --hue: var(--hue-wrong);
+}
+
+.start-btn, .next-btn {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 10px 20px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hide {
+  display: none;
+}
+
+/*
+  CSS code for RateBoardGames.html
+*/
+
+.btn-green {
+  background-color: #1ab394;
+  color: #fff;
+  border-radius: 3px;
+  /*
+  &:hover, &:focus {
+    background-color: #18a689;
+    color: #fff;
+  }*/
+}
+
+.panel-footer {
+  text-align: right;
+  background-color: #fff;
+}
